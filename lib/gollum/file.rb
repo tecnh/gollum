@@ -47,7 +47,7 @@ module Gollum
     # Returns a Gollum::File or nil if the file could not be found.
     def find(name, version)
       commit = @wiki.repo.commit(version)
-      if blob = commit.tree / name
+      if commit != nil && blob = commit.tree / name
         @blob    = blob
         @path    = name
         @version = commit
