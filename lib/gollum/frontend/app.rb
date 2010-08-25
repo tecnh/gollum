@@ -131,7 +131,7 @@ module Precious
 
     get '/search' do
       @q = params[:q]
-      @search_command = "cd #{$path} && git grep -c '#{@q}' master"
+      @search_command = "cd #{settings.gollum_path} && git grep -c '#{@q}' master"
       @results = `#{@search_command}`
       mustache :search
     end
