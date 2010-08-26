@@ -136,6 +136,11 @@ module Gollum
       parents = pcommit ? [pcommit] : []
       actor   = Grit::Actor.new(commit[:name], commit[:email])
       sha = index.commit(commit[:message], parents, actor)
+
+      unless repo.bare
+        sync_working_tree
+      end
+
       @ref_map.clear
       sha
     end
@@ -175,6 +180,11 @@ module Gollum
 
       actor = Grit::Actor.new(commit[:name], commit[:email])
       sha = index.commit(commit[:message], [pcommit], actor)
+
+      unless repo.bare
+        sync_working_tree
+      end
+
       @ref_map.clear
       sha
     end
@@ -197,6 +207,11 @@ module Gollum
 
       actor = Grit::Actor.new(commit[:name], commit[:email])
       sha = index.commit(commit[:message], [pcommit], actor)
+
+      unless repo.bare
+        sync_working_tree
+      end
+
       @ref_map.clear
       sha
     end
@@ -431,6 +446,12 @@ module Gollum
     def clear_cache
       @ref_map  = {}
       @tree_map = {}
+    end
+
+    # Bring the working tree of the repo in sync with the latest changes.
+    def sync_working_tree
+      @repo.git.run("cd #{@path};", 'reset', '', {}, ['--hard'])
+      @repo.git.run("cd #{@path};", 'clean', '', {}, ['-df'])
     end
   end
 end
