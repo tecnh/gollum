@@ -456,6 +456,7 @@ Gem::Specification.new do |s|
     lib/gollum/markup.rb
     lib/gollum/page.rb
     lib/gollum/pagination.rb
+    lib/gollum/ruby1.8.rb
     lib/gollum/wiki.rb
     templates/formatting.html
     test/examples/lotr.git/HEAD
