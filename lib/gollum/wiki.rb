@@ -139,7 +139,7 @@ module Gollum
 
       unless repo.bare
         sync_working_tree
-      end
+    end
 
       @ref_map.clear
       sha
@@ -183,7 +183,7 @@ module Gollum
 
       unless repo.bare
         sync_working_tree
-      end
+    end
 
       @ref_map.clear
       sha
@@ -210,7 +210,7 @@ module Gollum
 
       unless repo.bare
         sync_working_tree
-      end
+    end
 
       @ref_map.clear
       sha
