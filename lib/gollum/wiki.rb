@@ -214,8 +214,7 @@ module Gollum
     #
     # Returns an Array with Objects of page name and count of matches
     def search(query)
-      # Would do it as: {:count => query}, however, `git grep --count='query'`
-      # doesn't work as expected.
+      # See: http://github.com/Sirupsen/gollum/commit/f0a6f52bdaf6bee8253ca33bb3fceaeb27bfb87e
       search_output = @repo.git.grep({:c => query}, 'master')
 
       search_output.split("\n").collect do |line|
