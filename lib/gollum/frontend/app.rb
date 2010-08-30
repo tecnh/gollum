@@ -4,10 +4,15 @@ require 'mustache/sinatra'
 
 require 'gollum/frontend/views/layout'
 require 'gollum/frontend/views/editable'
+require 'gollum/frontend/authorization'
 
 module Precious
   class App < Sinatra::Base
     register Mustache::Sinatra
+
+    helpers do
+     include Sinatra::Authorization
+    end
 
     dir = File.dirname(File.expand_path(__FILE__))
 
@@ -36,10 +41,12 @@ module Precious
     end
 
     get '/' do
+      require_authorization
       show_page_or_file('Home')
     end
 
     get '/edit/:name' do
+      require_authorization
       @name = params[:name]
       wiki = Gollum::Wiki.new(settings.gollum_path)
       if page = wiki.page(@name)
@@ -52,6 +59,7 @@ module Precious
     end
 
     post '/edit/:name' do
+      require_authorization
       name   = params[:name]
       wiki   = Gollum::Wiki.new(settings.gollum_path)
       page   = wiki.page(name)
@@ -64,6 +72,7 @@ module Precious
     end
 
     post '/create/:name' do
+      require_authorization
       name = params[:page]
       wiki = Gollum::Wiki.new(settings.gollum_path)
 
@@ -79,6 +88,7 @@ module Precious
     end
 
     post '/preview' do
+      require_authorization
       format = params['wiki_format']
       data = params['text']
       wiki = Gollum::Wiki.new(settings.gollum_path)
@@ -86,6 +96,7 @@ module Precious
     end
 
     get '/history/:name' do
+      require_authorization
       @name     = params[:name]
       wiki      = Gollum::Wiki.new(settings.gollum_path)
       @page     = wiki.page(@name)
@@ -95,6 +106,7 @@ module Precious
     end
 
     post '/compare/:name' do
+      require_authorization
       @versions = params[:versions] || []
       if @versions.size < 2
         redirect "/history/#{params[:name]}"
@@ -107,6 +119,7 @@ module Precious
     end
 
     get '/compare/:name/:version_list' do
+      require_authorization
       @name     = params[:name]
       @versions = params[:version_list].split(/\.{2,3}/)
       wiki      = Gollum::Wiki.new(settings.gollum_path)
@@ -117,6 +130,7 @@ module Precious
     end
 
     get %r{/(.+?)/([0-9a-f]{40})} do
+      require_authorization
       name = params[:captures][0]
       wiki = Gollum::Wiki.new(settings.gollum_path)
       if page = wiki.page(name, params[:captures][1])
@@ -130,6 +144,7 @@ module Precious
     end
 
     get '/search' do
+      require_authorization
       @query = params[:q]
       wiki = Gollum::Wiki.new(settings.gollum_path)
       @results = wiki.search @query
@@ -137,6 +152,7 @@ module Precious
     end
 
     get '/*' do
+      require_authorization
       show_page_or_file(params[:splat].first)
     end
 
@@ -158,8 +174,8 @@ module Precious
 
     def commit_message(wiki)
       { :message => params[:message],
-        :name    => wiki.repo.config['user.name'],
-        :email   => wiki.repo.config['user.email'] }
+        :name    => request.env['REMOTE_USER']['name'] || wiki.repo.config['user.name'],
+        :email   => request.env['REMOTE_USER']['email'] || wiki.repo.config['user.email'] }
     end
   end
 end
