@@ -3,9 +3,9 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.rubygems_version = '1.3.5'
 
-  s.name              = 'gollum'
-  s.version           = '1.0.1'
-  s.date              = '2010-08-12'
+  s.name              = 'tecnh-gollum'
+  s.version           = '1.0.2.auth'
+  s.date              = '2010-08-30'
   s.rubyforge_project = 'gollum'
 
   s.summary     = "A simple, Git-powered wiki."
@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency('sanitize', "~> 1.1")
   s.add_dependency('nokogiri', "~> 1.4")
 
+
   s.add_development_dependency('RedCloth')
   s.add_development_dependency('mocha')
   s.add_development_dependency('org-ruby')
@@ -50,6 +51,8 @@ Gem::Specification.new do |s|
     lib/gollum/albino.rb
     lib/gollum/file.rb
     lib/gollum/frontend/app.rb
+    lib/gollum/frontend/authorization.rb
+    lib/gollum/frontend/config.ru
     lib/gollum/frontend/public/css/editbar.css
     lib/gollum/frontend/public/css/gollum.css
     lib/gollum/frontend/public/css/screen.css
