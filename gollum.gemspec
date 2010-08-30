@@ -1,19 +1,11 @@
-begin
-  # This should be immune to installed versions of the Gollum gem, by virtue of
-  # specifying a path.  I.E. we want the version from our source tree.
-  require 'lib/gollum'
-rescue
-  raise "Couldn't load gollum library to find version.  OOPS!"
-end
-
 Gem::Specification.new do |s|
   s.specification_version = 2 if s.respond_to? :specification_version=
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.rubygems_version = '1.3.5'
 
   s.name              = 'gollum'
-  s.version           = Gollum::VERSION
-  s.date              = `git log -1 --date=short '--pretty=format:%cd' HEAD`.strip
+  s.version           = '1.0.1'
+  s.date              = '2010-08-12'
   s.rubyforge_project = 'gollum'
 
   s.summary     = "A simple, Git-powered wiki."
