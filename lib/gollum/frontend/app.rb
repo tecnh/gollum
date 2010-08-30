@@ -130,9 +130,9 @@ module Precious
     end
 
     get '/search' do
-      @q = params[:q]
-      @search_command = "cd #{settings.gollum_path} && git grep -c '#{@q}' master"
-      @results = `#{@search_command}`
+      @query = params[:q]
+      wiki = Gollum::Wiki.new($path)
+      @results = wiki.search @query
       mustache :search
     end
 

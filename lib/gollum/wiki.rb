@@ -230,6 +230,26 @@ module Gollum
       end
     end
 
+    # Public: Search all pages for this wiki.
+    #
+    # query - The string to search for
+    #
+    # Returns an Array with Objects of page name and count of matches
+    def search(query)
+      # See: http://github.com/Sirupsen/gollum/commit/f0a6f52bdaf6bee8253ca33bb3fceaeb27bfb87e
+      search_output = @repo.git.grep({:c => query}, 'master')
+
+      search_output.split("\n").collect do |line|
+        result = line.split(':')
+        file_name = result[1]
+
+        {
+          :count  => result[2].to_i,
+          :name   => file_name.split('.').first
+        }
+      end
+    end
+
     # Public: All of the versions that have touched the Page.
     #
     # options - The options Hash:
