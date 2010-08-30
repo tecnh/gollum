@@ -453,16 +453,20 @@ Gem::Specification.new do |s|
     lib/gollum/frontend/templates/create.mustache
     lib/gollum/frontend/templates/edit.mustache
     lib/gollum/frontend/templates/editbar.mustache
+    lib/gollum/frontend/templates/error.mustache
     lib/gollum/frontend/templates/history.mustache
     lib/gollum/frontend/templates/layout.mustache
     lib/gollum/frontend/templates/page.mustache
+    lib/gollum/frontend/templates/search.mustache
     lib/gollum/frontend/views/compare.rb
     lib/gollum/frontend/views/create.rb
     lib/gollum/frontend/views/edit.rb
     lib/gollum/frontend/views/editable.rb
+    lib/gollum/frontend/views/error.rb
     lib/gollum/frontend/views/history.rb
     lib/gollum/frontend/views/layout.rb
     lib/gollum/frontend/views/page.rb
+    lib/gollum/frontend/views/search.rb
     lib/gollum/markup.rb
     lib/gollum/page.rb
     lib/gollum/pagination.rb
