@@ -27,7 +27,7 @@ module Sinatra
     request.env['REMOTE_USER'].delete if !request.env['REMOTE_USER'].nil?
 
     # Assume this is a github repo, auth won't be enforced in app.rb if not github
-    repo = `cd #{$path}; git config --get remote.origin.url`.strip.split(":")
+    repo = `cd #{settings.gollum_path}; git config --get remote.origin.url`.strip.split(":")
     return true if repo.empty? # Shouldn't have been called, just here to prevent 500s
     repo_loc = repo.last.split("/")
     uri = URI.parse("http://github.com/api/v2/json/repos/show/#{repo_loc[0]}/#{repo_loc[1].split(".").first}/collaborators")
@@ -64,7 +64,7 @@ module Sinatra
   end
  
   def require_authorization
-    repo = `cd #{$path}; git config --get remote.origin.url`.strip.split(":")
+    repo = `cd #{settings.gollum_path}; git config --get remote.origin.url`.strip.split(":")
     return if repo.nil? || repo[0] != "git@github.com"
     return if authorized?
     unauthorized! unless auth.provided?

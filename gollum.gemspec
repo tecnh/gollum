@@ -4,16 +4,16 @@ Gem::Specification.new do |s|
   s.rubygems_version = '1.3.5'
 
   s.name              = 'tecnh-gollum'
-  s.version           = '1.0.2.auth'
+  s.version           = '1.0.2.auth2'
   s.date              = '2010-08-30'
   s.rubyforge_project = 'gollum'
 
   s.summary     = "A simple, Git-powered wiki."
   s.description = "A simple, Git-powered wiki with a sweet API and local frontend."
 
-  s.authors  = ["Tom Preston-Werner", "Rick Olson"]
+  s.authors  = ["Tom Preston-Werner", "Rick Olson", "Jon Frisby", "Mat Ellis"]
   s.email    = 'tom@github.com'
-  s.homepage = 'http://github.com/github/gollum'
+  s.homepage = 'http://github.com/tecnh/gollum'
 
   s.require_paths = %w[lib]
 

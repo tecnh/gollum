@@ -15,7 +15,6 @@ configure :development, :staging, :production do
  set :clean_trace, true
 end
 
-$path = gollum_path
 Precious::App.set(:gollum_path, gollum_path)
 
 run Precious::App
